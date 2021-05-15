@@ -1,6 +1,6 @@
 interface pluginData {
-    name: String,
-    author: String,
-    version: string,
-    onLoad?: CallableFunction
+  name: String;
+  author: String;
+  version: string;
+  onLoad?: CallableFunction;
 }

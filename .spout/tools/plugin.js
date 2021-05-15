@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { isDir } = require("./misc.js")
+const { isDir } = require("./misc.js");
 var pluginMap = new Map();
 
 module.exports = class Plugin {
@@ -24,18 +24,41 @@ module.exports = class Plugin {
 };
 
 (async function () {
+  const spoutapi =
+    'module.exports = { Plugin:require("../.spout/tools/plugin.js"), Spout:require("../.spout/api/spout.js") }';
+  const internalspoutapi =
+    'module.exports = { Plugin:require("../../tools/plugin.js"), Spout:require("../../api/spout.js") }';
   if (!fs.existsSync("./plugins/")) {
     fs.mkdirSync("./plugins");
   }
-  fs.writeFileSync(
-    "./plugins/-spoutapi.js",
-    'module.exports = { Plugin:require("../.spout/tools/plugin.js"), Spout:require("../.spout/api/spout.js") }'
-  );
+  fs.writeFileSync("./plugins/-spoutapi.js", spoutapi);
+  fs.writeFileSync("./.spout/internal/plugins/-spoutapi.js", internalspoutapi);
+
+  fs.readdir("./.spout/internal/plugins", async (err, files) => {
+    let pluginsrc = files.filter(
+      (file) =>
+        !isDir("./.spout/internal/plugins/" + file) &&
+        !file.toString().split(" ").join("").startsWith("-")
+    );
+    pluginsrc.forEach((plugin) => {
+      try {
+        require("../internal/plugins/" + plugin);
+      } catch (e) {
+        console.log(
+          "[SPOUT CRITICAL ERROR] An error occured while loading the internal plugin " +
+            plugin +
+            "! Provided below is the debug info."
+        );
+        console.log(e);
+      }
+    });
+  });
 
   fs.readdir("./plugins", async (err, files) => {
     let pluginsrc = files.filter(
       (file) =>
-        !isDir("./plugins/"+file) && !file.toString().split(" ").join("").startsWith("-")
+        !isDir("./plugins/" + file) &&
+        !file.toString().split(" ").join("").startsWith("-")
     );
     if (pluginsrc.length < 1)
       return console.log("[SPOUT] No plugins found! Why don't you add some?");

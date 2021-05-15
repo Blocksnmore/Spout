@@ -45,6 +45,7 @@ module.exports = async function (serverInstance) {
       enableRespawnScreen: true,
       isDebug: false,
       isFlat: false,
+      levelType: "Spout",
     });
 
     client.write("position", {
@@ -73,10 +74,12 @@ module.exports = async function (serverInstance) {
             value: new Array(36).fill([0, 0]),
           },
         },
-      }, // send fake heightmap
+      },
       bitMap: singularChunk.getMask(),
       chunkData: singularChunk.dump(),
       blockEntities: [],
     });
+    client.registerChannel("minecraft:brand", ["string", []]);
+    client.writeChannel("minecraft:brand", Buffer.from("Spout").toString());
   });
 };

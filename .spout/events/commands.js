@@ -11,7 +11,7 @@ module.exports = async function (serverInstance) {
       let args = data.message.toString().split(" ");
       let command = args[0].toString().toLowerCase().substring(1);
       if (!commands.has(command)) new Player(client).send(config.messages.invalidcommand);
-      else commands.get(command)(new Player(client));
+      else commands.get(command)(new Player(client), args);
     });
   });
 };
