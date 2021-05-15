@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-module.exports = async function () {
+module.exports = function () {
   if (!fs.existsSync("./properties.json")) {
     fs.writeFileSync(
       "./properties.json",
@@ -13,8 +13,15 @@ module.exports = async function () {
         debugmode: false,
         logwarns: true,
         defaultgamemode: 0,
+        messages: {
+          invalidcommand: "Unknown Command!",
+        },
       })
     );
   }
-  return JSON.parse(fs.readFileSync("./properties.json", "utf-8"));
+  /**
+   * @type {config}
+   */
+  let config = JSON.parse(fs.readFileSync("./properties.json", "utf-8"))
+  return config;
 };

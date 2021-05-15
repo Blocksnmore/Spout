@@ -5,6 +5,7 @@
 module.exports = async function (serverInstance) {
   serverInstance.on("login", async (client) => {
     client.on("chat", async (data) => {
+      if(data.message.startsWith("/")) return;
       var msg = {
         translate: "chat.type.text",
         with: [client.username, data.message],

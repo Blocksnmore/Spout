@@ -24,14 +24,13 @@ const { eula, mc, config, spout } = require("./.spout/global");
   );
   await eula();
   console.log("EULA verified! Loading server!");
-  let configuration = await config();
   spout(
     mc.createServer({
       "online-mode": true, // May be configurable in the future
       version: "1.16.4",
-      port: configuration.port,
-      motd: configuration.motd,
-      maxPlayers: configuration.maxPlayers,
+      port: config.port,
+      motd: config.motd,
+      maxPlayers: config.maxPlayers,
     })
   );
   console.log("Started server!");

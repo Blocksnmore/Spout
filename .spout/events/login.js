@@ -18,7 +18,7 @@ for (let x = 0; x < 16; x++) {
  */
 module.exports = async function (serverInstance) {
   serverInstance.on("login", async (client) => {
-    let opts = await config();
+    let opts = config;
     let loginPacket = data.loginPacket;
 
     if (opts.debugmode)

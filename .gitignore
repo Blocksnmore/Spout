@@ -1,3 +1,7 @@
+# Directories
 node_modules/
+plugins/
+
+# Files
 /properties.json
 /eula.txt
