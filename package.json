@@ -1,0 +1,24 @@
+{
+  "name": "spout",
+  "version": "1.0.0",
+  "description": "A simple and scaleable Minecraft server platform written in JS",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "keywords": [
+    "Minecraft",
+    "Spigot",
+    "Paper",
+    "Server",
+    "Plugins"
+  ],
+  "author": "Blocks_n_more",
+  "license": "ISC",
+  "dependencies": {
+    "minecraft-data": "^2.84.0",
+    "minecraft-protocol": "^1.25.0",
+    "prismarine-chunk": "^1.22.0",
+    "vec3": "^0.1.7"
+  }
+}
