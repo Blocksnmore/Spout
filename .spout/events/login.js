@@ -1,16 +1,5 @@
-const { data, config, vec3, chunk, block } = require("../global");
-
-const singularChunk = new chunk();
-for (let x = 0; x < 16; x++) {
-  for (let z = 0; z < 16; z++) {
-    let pos = new vec3(x, 100, z);
-    block.setBlock(singularChunk, pos, new block.Block(1));
-    for (let y = 0; y < 256; y++) {
-      pos = new vec3(x, y, z);
-      block.setSkyLight(singularChunk, pos);
-    }
-  }
-}
+const { Player } = require("../api/spout");
+const { data, config, MapSystem } = require("../global");
 
 /**
  *
@@ -30,7 +19,7 @@ module.exports = async function (serverInstance) {
       );
 
     client.write("login", {
-      entityId: client.id,
+      entityId: client.uuid,
       isHardcore: opts.hardcore,
       gameMode: opts.defaultgamemode,
       previousGameMode: 255,
@@ -45,41 +34,26 @@ module.exports = async function (serverInstance) {
       enableRespawnScreen: true,
       isDebug: false,
       isFlat: false,
-      levelType: "Spout",
     });
 
+    new MapSystem().generateMap(client, 10);
+
     client.write("position", {
-      x: 15,
-      y: 101,
-      z: 15,
+      x: 0,
+      y: 61,
+      z: 0,
       yaw: 137,
       pitch: 0,
       flags: 0x00,
     });
 
-    client.write("map_chunk", {
-      x: 0,
-      z: 0,
-      groundUp: true,
-      biomes:
-        singularChunk.dumpBiomes !== undefined
-          ? singularChunk.dumpBiomes()
-          : undefined,
-      heightmaps: {
-        type: "compound",
-        name: "",
-        value: {
-          MOTION_BLOCKING: {
-            type: "longArray",
-            value: new Array(36).fill([0, 0]),
-          },
-        },
-      },
-      bitMap: singularChunk.getMask(),
-      chunkData: singularChunk.dump(),
-      blockEntities: [],
-    });
     client.registerChannel("minecraft:brand", ["string", []]);
     client.writeChannel("minecraft:brand", Buffer.from("Spout").toString());
+
+    for (let i in serverInstance.clients) {
+      new Player(serverInstance.clients[i]).send(
+        client.username + " Joined the game!"
+      );
+    }
   });
 };

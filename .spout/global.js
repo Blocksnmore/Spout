@@ -8,8 +8,10 @@ const spout = require("./spout");
 const block = require("./tools/block");
 const plugin = require("./tools/plugin");
 const config = require("./tools/config")();
+const MapSystem = require("./tools/map");
 
 var commands = new Map();
+var pluginMap = new Map();
 
 module.exports = {
   mc,
@@ -21,8 +23,9 @@ module.exports = {
   spout,
   block,
   plugin,
+  config,
+  MapSystem,
 
   commands,
-
-  config,
+  pluginMap,
 };

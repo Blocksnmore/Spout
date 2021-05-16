@@ -58,4 +58,7 @@ module.exports = class Player {
   getUsername() {
     return this.playerData.username;
   }
+  getRawData(){
+    return this.playerData;
+  }
 };
