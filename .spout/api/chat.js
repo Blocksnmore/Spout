@@ -18,19 +18,20 @@ const colormap = {
   f: "white",
 };
 const formatmap = {
-    "k":"obfuscated",
-    "l":"bold",
-    "m":"strikethrough",
-    "n":"underlined",
-    "o":"italic",
-    "r":"reset"
-}
+  k: "obfuscated",
+  l: "bold",
+  m: "strikethrough",
+  n: "underlined",
+  o: "italic",
+  r: "reset",
+};
 
 /**
  *
  * @param {String} string
  */
-module.exports = function translateColor(string) {
-  throw new Error("[SPOUT] TranslateColor API is coming soon!")
-}
-
+module.exports = class Chat {
+  translateColor(string) {
+    return [{ text: string }];
+  }
+};

@@ -54,6 +54,7 @@ module.exports = async function (serverInstance) {
       new Player(serverInstance.clients[i]).send(
         client.username + " Joined the game!"
       );
+
     }
   });
 };

@@ -1,3 +1,5 @@
+const Chat = require("./chat");
+
 module.exports = class Player {
   /**
    *
@@ -7,9 +9,13 @@ module.exports = class Player {
     this.playerData = playerData;
   }
   send(string) {
+    this.sendRaw(new Chat().translateColor(string));
+  }
+  sendRaw(string) {
     this.playerData.write("chat", {
       message: JSON.stringify({
-        translate: string,
+        translate: "",
+        extra: string,
       }),
       position: 0,
       sender: "0",
@@ -27,17 +33,19 @@ module.exports = class Player {
       this.playerData.write("title", {
         action: 1,
         text: JSON.stringify({
-          translate: options.subtitle,
+          translate: "",
+          extra: string,
         }),
       });
     this.playerData.write("title", {
       action: 0,
       text: JSON.stringify({
-        translate: string,
+        translate: "",
+        extra: string,
       }),
     });
   }
-  sendActionBar(string, options){
+  sendActionBar(string, options) {
     if (!options) options = {};
     this.playerData.write("title", {
       action: 3,
@@ -48,7 +56,8 @@ module.exports = class Player {
     this.playerData.write("title", {
       action: 2,
       text: JSON.stringify({
-        translate: string,
+        translate: "",
+        extra: string,
       }),
     });
   }
@@ -58,7 +67,7 @@ module.exports = class Player {
   getUsername() {
     return this.playerData.username;
   }
-  getRawData(){
+  getRawData() {
     return this.playerData;
   }
 };
