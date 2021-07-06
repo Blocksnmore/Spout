@@ -1,2 +1,2 @@
-# Spout
-A simple & easy to use spigot fork written in JS
+# THIS REPOSITORY HAS BEEN ARCHIVED
+Please visit the new repository at [SpoutJS/Server](https://github.com/SpoutJS/Server)
